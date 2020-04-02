@@ -21,7 +21,7 @@ If bootstrap succeeds you will see a banner with instruction on how to expose se
 
 ## Istio
 
-In that example istio solves following tasks
+In that example istio perform following tasks
 - Provides ingress gateway with HTTP routing
 - Enables mutual TLS connections between services and ingress gateway
 - Serves telemetry from the mesh
