@@ -55,12 +55,7 @@ spec:
       enabled: true
     grafana:
       enabled: true
-  meshConfig:
-    enableAutoMtls: true
   values:
-    global:
-      mtls:
-        enabled: true
     sidecarInjectorWebhook:
       rewriteAppHTTPProbe: true
     pilot:
@@ -151,6 +146,17 @@ spec:
         host: kiali
         port:
           number: 20001
+EOF
+
+minikube kubectl -- apply -f - <<EOF
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default
+  namespace: istio-system
+spec:
+  mtls:
+    mode: STRICT
 EOF
 
 minikube kubectl -- label namespace default istio-injection=enabled --overwrite=true
