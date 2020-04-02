@@ -1,0 +1,15 @@
+spec:
+  template:
+    spec:
+      containers:
+        - name: grafana
+          volumeMounts:
+          - mountPath: /var/lib/grafana/dashboards/application/requests-dashboard.json
+            name: dashboards-application-requests-dashboard
+            readOnly: true
+            subPath: application-dashboard.json
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: application-grafana-configuration-dashboards-requests
+          name: dashboards-application-requests-dashboard
