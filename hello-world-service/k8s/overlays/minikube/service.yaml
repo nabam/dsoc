@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-world-service
+  labels:
+    version: latest
+spec:
+  selector:
+    version: latest

@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: again-service
+  labels:
+    app: again-service
 spec:
   selector:
     matchLabels:
@@ -17,7 +19,6 @@ spec:
     spec:
       containers:
       - name: again-service
-        image: dsoc/again-service:latest
         imagePullPolicy: IfNotPresent
         resources:
           requests:

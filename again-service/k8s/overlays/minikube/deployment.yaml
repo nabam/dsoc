@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: again-service
+  labels:
+    version: latest
+spec:
+  selector:
+    matchLabels:
+      version: latest
+  template:
+    metadata:
+      labels:
+        version: latest
+    spec:
+      containers:
+      - name: again-service
+        image: dsoc/again-service:latest

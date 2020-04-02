@@ -6,3 +6,6 @@ bases:
 
 patchesStrategicMerge:
   - virtualservice.yaml
+  - deployment.yaml
+  - service.yaml
+

@@ -2,6 +2,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: again-service
+  labels:
+    app: again-service
 spec:
   ports:
   - protocol: TCP

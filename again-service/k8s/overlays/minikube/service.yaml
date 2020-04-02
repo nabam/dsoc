@@ -1,9 +1,11 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: hello-world-service-ingress
+  name: again-service-ingress
   labels:
     version: latest
 spec:
   hosts:
-    - challenge.local
+    - detectify.challenge.local
+  selector:
+    version: latest

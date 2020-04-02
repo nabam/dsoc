@@ -2,6 +2,8 @@ apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
   name: hello-world-service-ingress
+  labels:
+    app: hello-world-service
 spec:
   hosts: []
   gateways:
