@@ -1,9 +1,13 @@
 package handlers
 
 import (
+	"crypto/tls"
 	"io/ioutil"
+	"net"
 	"net/http"
 	"strings"
+
+	"golang.org/x/net/http2"
 
 	"github.com/labstack/echo/v4"
 	"github.com/openzipkin/zipkin-go/propagation/b3"
@@ -14,6 +18,15 @@ type AgainHandler struct {
 	HelloServiceURL string
 }
 
+var h2cClient = http.Client{
+	Transport: &http2.Transport{
+		AllowHTTP: true,
+		DialTLS: func(network, addr string, cfg *tls.Config) (net.Conn, error) {
+			return net.Dial(network, addr)
+		},
+	},
+}
+
 func (a *AgainHandler) Handle(c echo.Context) error {
 	req, err := http.NewRequest("GET", a.HelloServiceURL, nil)
 
@@ -22,7 +35,7 @@ func (a *AgainHandler) Handle(c echo.Context) error {
 		b3.InjectHTTP(req, b3.WithSingleAndMultiHeader())(*sc)
 	}
 
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := h2cClient.Do(req)
 	if err != nil {
 		return err
 	}

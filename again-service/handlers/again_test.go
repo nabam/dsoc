@@ -6,6 +6,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"golang.org/x/net/http2"
+	"golang.org/x/net/http2/h2c"
+
 	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
 )
@@ -14,6 +17,7 @@ func TestAgainHandler(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, "Hello World")
 	}))
+	ts.Config.Handler = h2c.NewHandler(ts.Config.Handler, &http2.Server{})
 	defer ts.Close()
 
 	req := httptest.NewRequest(echo.GET, "/", nil)
